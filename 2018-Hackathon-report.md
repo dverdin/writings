@@ -11,7 +11,7 @@ Here is the list of the attendees and their main areas of expertise (in last nam
  - [Luc Didry](https://github.com/ldidry) (Framasoft): Framasoft listmaster, Sysadmin, Perl expert and experienced free software manager
  - Mathieu Durero (French young researchers confederation) ; "The noob": Mathieu is an experienced listmaster but didn't know anything about Perl or Ansible prior to the hackathon. His "naive" - though thoughtfull -  input has been very valuable during the three days.
  - [François Menabe](https://github.com/fmenabe) (Strasbourg University): Sysadmin, Ansible expert
- - [Racke](https://github.com/orgs/racke) (Linuxia.de): Debian package developer, member of the Dancer2 community, Linux and Perl expert
+ - [Racke](https://github.com/racke) (Linuxia.de): Debian package developer, member of the Dancer2 community, Linux and Perl expert
  - [Olivier Salaün](https://github.com/salaun-urennes1) (Rennes university): Sympa creator, Devops expert,
  - [David Verdin](https://github.com/dverdin) (RENATER): Former Sympa lead developer, experienced listmaster
 
@@ -35,7 +35,7 @@ Here is the list of points discussed and the agreements we reached.
  - the code should expose several interfaces: REST, web, CLI, mail. SOAP could be deprecated once a REST interface is complete.
  - all Sympa executables (being daemons, web process or command line) should make use of a business object layer which should be independant from the persistance layer.
  - Reminder: during last year hackathon, we already agreed on using the following technologies:
-   - [Dancer2](https://metacpan.org/pod/Dancer2) for the REST API,
+   - [Dancer2](https://metacpan.org/pod/Dancer2) for the REST API implementation,
    - [OpenAPI](https://github.com/OAI/OpenAPI-Specification) for the REST API specification,
    - [DBIx::Class](https://metacpan.org/pod/DBIx::Class) for Sympa database backend management and access.
 
@@ -43,7 +43,31 @@ Here is the list of points discussed and the agreements we reached.
 
 As we will not have the perfect Sympa right now, we should set some goals. A reasonable aim for Sympa 7.0 would be to be iso-functional with a refactored, testable code and a full  REST API.
 
+Here is a proposed methodology:
 
+### Work on new features
+
+Write a Dancer2+DBIC proof of concept. Racke volunteers to work on it. The REST API would run on Dancer2 and directly query the database through DBIC. This would create a good base for future Sympa with actually running code.
+
+### Refactoring
+
+- Create a testing framework to run unit tests on existing code (including mock databases, configurations, list directories, etc.). David volunteers to work on it.
+- Create functional tests based on the [https://github.com/sympa-community/sympa-ansible] project and [Test::BDD::Cucumber](https://metacpan.org/pod/distribution/Test-BDD-Cucumber/lib/Test/BDD/Cucumber/Manual/Tutorial.pod). Olivier volunteers to wok on it.
+- Start improving the code, step by step. Anyone can do this.
+
+#### A proposed tagging system to track refactoring:
+
+(Ideas by Olivier and I on the train back home Friday morning)
+
+The idea is to know easily what's awaiting in the refactoring queue.
+We could use Travis CI to generate report based on tags left in comment of Perl code:
+
+  # WORK: <task>: <state>
+  with:
+  <task>: unit-tests|Moo|function-parameters|types-standard|any other improvment we could do
+  <state>: FIXME (nothing done yet)|DONE|ONGOING:<username> (work in progress by <username>)
+
+That way, anyone could now how far we are. We even could add a progression tracker to the main Sympa web site.
 
 ## Community: roadmap
 
