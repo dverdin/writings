@@ -8,7 +8,7 @@ It was organized by March chantreux, from RENATER, and hosted by the Strasbourg 
 Here is the list of the attendees and their main areas of expertise (in last name  - or handle - alphabetical order).
 
  - [March Chantreux](https://github.com/eiro) (RENATER): Perl expert, listmaster, Perlude creator
- - [Luc Didry](https://github.com/ldidry) (Framasoft): Framasoft listmaster, Sysadmin, Perl expert,
+ - [Luc Didry](https://github.com/ldidry) (Framasoft): Framasoft listmaster, Sysadmin, Perl expert and experienced free software manager
  - Mathieu Durero (French young researchers confederation) ; "The noob": Mathieu is an experienced listmaster but didn't know anything about Perl or Ansible prior to the hackathon. His "naive" - though thoughtfull -  input has been very valuable during the three days.
  - [François Menabe](https://github.com/fmenabe) (Strasbourg University): Sysadmin, Ansible expert
  - [Racke](https://github.com/orgs/racke) (Linuxia.de): Debian package developer, member of the Dancer2 community, Linux and Perl expert
@@ -31,23 +31,33 @@ Here is the list of points discussed and the agreements we reached.
 
 ## Desirable future application design
 
-
+ - all the code should be testable, with both unit tests on modules and functional tests on features
+ - the code should expose several interfaces: REST, web, CLI, mail. SOAP could be deprecated once a REST interface is complete.
+ - all Sympa executables (being daemons, web process or command line) should make use of a business object layer which should be independant from the persistance layer.
+ - Reminder: during last year hackathon, we already agreed on using the following technologies:
+   - [Dancer2](https://metacpan.org/pod/Dancer2) for the REST API,
+   - [OpenAPI](https://github.com/OAI/OpenAPI-Specification) for the REST API specification,
+   - [DBIx::Class](https://metacpan.org/pod/DBIx::Class) for Sympa database backend management and access.
 
 ## Sympa 7.0 target and methods of development
 
+As we will not have the perfect Sympa right now, we should set some goals. A reasonable aim for Sympa 7.0 would be to be iso-functional with a refactored, testable code and a full  REST API.
 
+
+
+## Community: roadmap
+
+## Tests
 
 ## Coding practices
 
 The aim of the discussion was to find a way to get rid of the *infrastructure code*. That's the part of the code that handles language mechanics instead focusing on application logic. For example, the "bless" command used to cast anything into an object could be easily replaced by Moo.
 
-The first section contains what we (hackathon attendees) agreed on and would like embraced by the community.
-
-The second section contains what we did not agree on but that still constitutes questions that should be answered.
-
 ### What we agreed on
 
 All these modules allow to drastically decrease the number of Sympa code lines without changing anything in the application logic. It would malke the code more readable and less error-prone.
+
+Baring any strong opposition from the community, developers should use it when working on Sympa.
 
  - [use Moo](https://metacpan.org/pod/Moo) for *object orientation*
  - [use Types::Standard](https://metacpan.org/pod/Types::Standard) to make *type checking* both automatic and explcit in the code
