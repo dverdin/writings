@@ -96,15 +96,19 @@ Baring any strong opposition from the community, developers should use it when w
   - [use utf8::all](https://metacpan.org/pod/utf8::all): Thought using it would make sense in a pure web environment, the diversity of data handled by Sympa, especially in mails, make encoding issues complex. It is impossible to use it until we have a complete tesing framework and advices of people very well learned in this topic.
 
 
-Pseudo-cyclomatic complexity removal. that means, replace this:
-  if ($a ne 'value') {
-    return $a;
-  } else {
-    return 'value';
-  }
+Pseudo-cyclomatic complexity removal. that means, replacing this:
+```
+if ($a ne 'value') {
+  return $a;
+} else {
+  return 'value';
+}
+```
 With this:
-  $a ne 'value' and return $a;
-  return $value;
+```
+$a ne 'value' and return $a;
+return $value;
+```
 
 Somme people liked the brevity of the code. Other prefered the explicit structure. No consensus either on this topic.
 
@@ -126,9 +130,11 @@ Here are a few things that were approved by the hackathon attendees.
 
 Here is the classical versioning pattern, adopted bya large number of softwares:
 
-  <major>.<minor>.<patch>
-  Example :
-  6.2.23
+`<major>.<minor>.<patch>`
+
+Example :
+
+`6.2.23`
 
   - **<major>**: non backward-compatible changes to the API
   - **<minor>**: backward-compatible new functionnalities
