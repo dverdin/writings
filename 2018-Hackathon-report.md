@@ -128,7 +128,7 @@ Here are a few things that were approved by the hackathon attendees.
 
 ### Semantic versioning.
 
-Here is the classical versioning pattern, adopted bya large number of softwares:
+Here is the [semantic versioning](https://semver.org/) pattern, adopted bya large number of softwares:
 
 `<major>.<minor>.<patch>`
 
@@ -150,10 +150,31 @@ Changing the way we version is possible right now (replacing the 6.2.33 with 6.3
 
 ### Single entry point for Sympa
 
-Currently, communications channels and web sites, though all pointed from the
+For clarity purpose, we need a single entry point for people willing to get informations about Sympa.
+
+The best tool for this seems to be the sympa.org web site.
+
+However, we need to allow community members to easily improve content of this web site. The tactic adopted by Soji to revamp Sympa manual can be reproduced for the rest of the site: have content sources on github, so that anyone willing to improve it can do it using pull requests.
+
+In order to preserver (blah blah):
+
+ - current www.sympa.org => dokuwiki.sympa.org or archive.sympa.org
+ - sympa-community.github.io remains the central point for editing documentation.
+ - a new repository is created (sympa.org) to handle:
+   - organisation of Sympa
+   - entry point for the community
+   - links to release tarballs
+   - documentation from sympa-community.github.io,
+   - contributing guidelines,
+   - events / news / announces
+  
+
+We mandated Marc to prepare that stuff in a comp
 
 ### Decision making
 
 ### Ease newcomers enrolment
+
+### Have a roadmap
 
 ### Make a Sympa conference
