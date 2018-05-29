@@ -32,7 +32,7 @@ Here is the list of points discussed and the agreements we reached.
 ## Desirable future application design
 
  - all the code should be testable, with both unit tests on modules and functional tests on features
- - the code should expose several interfaces: REST, web, CLI, mail. SOAP could be deprecated once a REST interface is complete.
+ - the code should expose several interfaces: REST, web, CLI, mail. SOAP could be deprecated once a REST interface implements at least the same set of features.
  - all Sympa executables (being daemons, web process or command line) should make use of a business object layer which should be independant from the persistance layer.
  - Reminder: during last year hackathon, we already agreed on using the following technologies:
    - [Dancer2](https://metacpan.org/pod/Dancer2) for the REST API implementation,
@@ -53,27 +53,23 @@ Write a Dancer2+DBIC proof of concept. Racke volunteers to work on it. The REST 
 
 ### Refactoring
 
-- Create a testing framework to run unit tests on existing code (including mock databases, configurations, list directories, etc.). David volunteers to work on it.
-- Create functional tests based on the [https://github.com/sympa-community/sympa-ansible] project and [Test::BDD::Cucumber](https://metacpan.org/pod/distribution/Test-BDD-Cucumber/lib/Test/BDD/Cucumber/Manual/Tutorial.pod). Olivier volunteers to wok on it.
-- Start improving the code, step by step. Anyone can do this.
+- Create a testing framework to run *unit tests* on existing code (including mock databases, configurations, list directories, etc.). David volunteers to work on it.
+- Create *functional tests* based on the [sympa-ansible project](https://github.com/sympa-community/sympa-ansible) and [Test::BDD::Cucumber](https://metacpan.org/pod/distribution/Test-BDD-Cucumber/lib/Test/BDD/Cucumber/Manual/Tutorial.pod). Olivier volunteers to work on it.
+- Start improving the code, step by step. Anyone can do this. **That implies that we refactor the existing code. Though it will quickly derive from current 6.2, we would start from the same state.**
 
 #### A proposed tagging system to track refactoring:
 
-(Ideas by Olivier and I on the train back home Friday morning)
+**Warning: This section contains ideas developped by Olivier and David while in the train back home. They were not discussed in such terms with the other.**
 
-The idea is to know easily what's awaiting in the refactoring queue.
+This is the suggested approach to hadle refactoring: 
 We could use Travis CI to generate report based on tags left in comment of Perl code:
 
   # WORK: <task>: <state>
   with:
-  <task>: unit-tests|Moo|function-parameters|types-standard|any other improvment we could do
+  <task>: unit-tests|Moo|function-parameters|types-standard|any other improvement we could do
   <state>: FIXME (nothing done yet)|DONE|ONGOING:<username> (work in progress by <username>)
 
 That way, anyone could now how far we are. We even could add a progression tracker to the main Sympa web site.
-
-## Community: roadmap
-
-## Tests
 
 ## Coding practices
 
@@ -86,7 +82,7 @@ All these modules allow to drastically decrease the number of Sympa code lines w
 Baring any strong opposition from the community, developers should use it when working on Sympa.
 
  - [use Moo](https://metacpan.org/pod/Moo): for *object orientation*
- - [use Types::Standard](https://metacpan.org/pod/Types::Standard): to make *type checking* both automatic and explcit in the code
+ - [use Types::Standard](https://metacpan.org/pod/Types::Standard): to make *type checking* both automatic and explicit in the code
  - [use Function::Parameters](https://metacpan.org/pod/Function::Parameters): to get functions (and object methods) signatures.
  - [use Path::Tiny](https://metacpan.org/pod/Path::Tiny): for any filesystem manipulation.
 
@@ -99,13 +95,16 @@ Baring any strong opposition from the community, developers should use it when w
 
 
 Pseudo-cyclomatic complexity removal. that means, replace this:
-  if ($a eq 'value') {
-    
+  if ($a ne 'value') {
+    return $a;
   } else {
-    
+    return 'value';
   }
 With this:
+  $a ne 'value' and return $a;
+  return $value;
 
+Somme people liked the brevity of the code. Other prefered the explicit structure. No consensus either on this topic.
 
 ### What is left aside for now
 
