@@ -64,7 +64,9 @@ Write a Dancer2+DBIC proof of concept. Racke volunteers to work on it. The REST 
 This is the suggested approach to hadle refactoring: 
 We could use Travis CI to generate report based on tags left in comment of Perl code:
 
+```
   # WORK: <task>: <state>
+```
   with:
   <task>: unit-tests|Moo|function-parameters|types-standard|any other improvement we could do
   <state>: FIXME (nothing done yet)|DONE|ONGOING:<username> (work in progress by <username>)
@@ -109,3 +111,43 @@ Somme people liked the brevity of the code. Other prefered the explicit structur
 ### What is left aside for now
 
   - Functional programming: Looks like a hot stuff right now but far from being a priority. Once the code is greatly improved, we might have new contributors that demand we switc to this; Well, we'll see then,
+
+### Coding style
+
+Luc started working on a coding style. Everything is summed up in [this issue](https://github.com/sympa-community/sympa/issues/325).
+
+## Community
+
+Luc stressed out the fact that, currently, self_organization of the community is weak. We won't achieve anything without a good coordination.
+
+Here are a few things that were approved by the hackathon attendees.
+
+### Semantic versioning.
+
+Here is the classical versioning pattern, adopted bya large number of softwares:
+
+  <major>.<minor>.<patch>
+  Example :
+  6.2.23
+
+  - **<major>**: non backward-compatible changes to the API
+  - **<minor>**: backward-compatible new functionnalities
+    - if even (2, 4, 6...): stable release
+    - if odd (1, 3, 5, ...): unstable release
+  - **<patch>**: backward-compatible bug fixes.
+
+The current way of Sympa versioning is atypical a prone to instill confusion to users. Non reversible and unstabilizing changes are introduced to the only active branch. Consequently, people upgrading Sympa can have broken features when they should expect only bug fixes.
+
+Changing the way we version is possible right now (replacing the 6.2.33 with 6.3.0 for example). It is just a matter of communication: 
+  - send a message to the lists,
+  - display clear information on the Sympa web site and sympa project github Readme.md file.
+
+### Single entry point for Sympa
+
+Currently, communications channels and web sites, though all pointed from the
+
+### Decision making
+
+### Ease newcomers enrolment
+
+### Make a Sympa conference
