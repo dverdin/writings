@@ -1,4 +1,4 @@
-**Disclaimer: This document express the views of the 2018 hackathon attendees. Consider all the points described as request for comments. This document should be the only reference for further discussions about the topics tackled during that hackathon.**
+**Disclaimer: This document expresses the views of the 2018 hackathon attendees. Consider all the points described as request for comments. This document should be the only reference for further discussions about the topics tackled during that hackathon.**
 
 # 2018 Sympa Hackathon report
 The 2018 Sympa hackathon was held in Strasbourg, France, from 22 to 24 of May.
@@ -38,6 +38,8 @@ Here is the list of points discussed and the agreements we reached.
    - [Dancer2](https://metacpan.org/pod/Dancer2) for the REST API implementation,
    - [OpenAPI](https://github.com/OAI/OpenAPI-Specification) for the REST API specification,
    - [DBIx::Class](https://metacpan.org/pod/DBIx::Class) for Sympa database backend management and access.
+
+
 
 ## Sympa 7.0 target and methods of development
 
@@ -83,8 +85,28 @@ All these modules allow to drastically decrease the number of Sympa code lines w
 
 Baring any strong opposition from the community, developers should use it when working on Sympa.
 
- - [use Moo](https://metacpan.org/pod/Moo) for *object orientation*
- - [use Types::Standard](https://metacpan.org/pod/Types::Standard) to make *type checking* both automatic and explcit in the code
- - [use Function::Parameters](https://metacpan.org/pod/Function::Parameters) to get functions (and object methods) signatures.
- - [use Path::Tiny](https://metacpan.org/pod/Path::Tiny) for any filesystem manipulation.
+ - [use Moo](https://metacpan.org/pod/Moo): for *object orientation*
+ - [use Types::Standard](https://metacpan.org/pod/Types::Standard): to make *type checking* both automatic and explcit in the code
+ - [use Function::Parameters](https://metacpan.org/pod/Function::Parameters): to get functions (and object methods) signatures.
+ - [use Path::Tiny](https://metacpan.org/pod/Path::Tiny): for any filesystem manipulation.
 
+### What we did not agree on
+
+  - [use MooX::LValueAttribute](https://metacpan.org/pod/MooX::LvalueAttribute): would allow to use attributes getters and setters as simple attribute, such as in '$self->atribute = $value;'.
+  - [use autodie](https://metacpan.org/pod/autodie): throws a "die" whenever a system call fails. In addition to reservations regarding the autodie principle, the main concern was that dying is only half the job in exception systems. We also need an exception handling methodology. Without a concrete proposal about it, raising exception will only unstabilize the software.
+  - [use do](http://perldoc.perl.org/functions/do.html): there was a proposal to use "do" whenever possible to make variable affectations explicit when they require complex code; the discussion reached no actual consensus. For now, if you want to use "do", well, do it, but this would not be enforced as a coding style.
+  - [use utf8::all](https://metacpan.org/pod/utf8::all): Thought using it would make sense in a pure web environment, the diversity of data handled by Sympa, especially in mails, make encoding issues complex. It is impossible to use it until we have a complete tesing framework and advices of people very well learned in this topic.
+
+
+Pseudo-cyclomatic complexity removal. that means, replace this:
+  if ($a eq 'value') {
+    
+  } else {
+    
+  }
+With this:
+
+
+### What is left aside for now
+
+  - Functional programming: Looks like a hot stuff right now but far from being a priority. Once the code is greatly improved, we might have new contributors that demand we switc to this; Well, we'll see then,
