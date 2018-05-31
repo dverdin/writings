@@ -43,7 +43,12 @@ Here is the list of points discussed and the agreements we reached.
 
 ## Sympa 7.0 target and methods of development
 
-As we will not have the perfect Sympa right now, we should set some goals. A reasonable aim for Sympa 7.0 would be to be iso-functional with a refactored, testable code and a full  REST API.
+### Target
+
+As we will not have the perfect Sympa right now, we should set some goals. A reasonable aim for Sympa 7.0 would be:
+
+  * to be iso-functional with a refactored, testable code
+  * expose a full  REST API.
 
 Here is a proposed methodology:
 
@@ -53,16 +58,20 @@ Write a Dancer2+DBIC proof of concept. Racke volunteers to work on it. The REST 
 
 ### Refactoring
 
+The best way to have a backward compatible Sympa 7 is to start from existing code and refactor it.
+
+This would be done by following these steps:
+
 - Create a testing framework to run *unit tests* on existing code (including mock databases, configurations, list directories, etc.). David volunteers to work on it.
 - Create *functional tests* based on the [sympa-ansible project](https://github.com/sympa-community/sympa-ansible) and [Test::BDD::Cucumber](https://metacpan.org/pod/distribution/Test-BDD-Cucumber/lib/Test/BDD/Cucumber/Manual/Tutorial.pod). Olivier volunteers to work on it.
-- Start improving the code, step by step. Anyone can do this. **That implies that we refactor the existing code. Though it will quickly derive from current 6.2, we would start from the same state.**
+- Improve the code step by step. Anyone can do this. **That implies that we refactor the existing code. Though it will quickly derive from current 6.2, we would start from the same state.**
 
 #### A proposed tagging system to track refactoring:
 
 **Warning: This section contains ideas developped by Olivier and David while in the train back home. They were not discussed in such terms with the other.**
 
-This is the suggested approach to hadle refactoring: 
-We could use Travis CI to generate report based on tags left in comment of Perl code:
+This is the suggested approach to handle refactoring.
+We could track changes through comments in the Perl code. These comments would have the following 
 
 ```
   # WORK: <task>: <state>
