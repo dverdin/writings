@@ -1,5 +1,7 @@
 **Disclaimer: This document expresses the views of the 2018 hackathon attendees. Consider all the points described as request for comments. This document should be the only reference for further discussions about the topics tackled during that hackathon.**
 
+**Another disclaimer: I tried to have strictly separated sections in this report to ease further discussion; That means that you need to read the full report before reacting: some topics are related (for example, technology choice and decision making) and they are located in different sections.**
+
 # 2018 Sympa Hackathon report
 The 2018 Sympa hackathon was held in Strasbourg, France, from 22 to 24 of May.
 It was organized by March chantreux, from RENATER, and hosted by the Strasbourg university.
@@ -31,14 +33,13 @@ Here is the list of points discussed and the agreements we reached.
 
 ## Desirable future application design
 
- - all the code should be testable, with both unit tests on modules and functional tests on features
- - the code should expose several interfaces: REST, web, CLI, mail. SOAP could be deprecated once a REST interface implements at least the same set of features.
- - all Sympa executables (being daemons, web process or command line) should make use of a business object layer which should be independant from the persistance layer.
+ - **all the code should be testable**, with both unit tests on modules and functional tests on features
+ - **the code should expose several interfaces**: REST, web, CLI, mail. SOAP could be deprecated once a REST interface implements at least the same set of features.
+ - all Sympa executables (being daemons, web process or command line) should make use of a **business object layer** which should be independant from the **persistance layer**.
  - Reminder: during last year hackathon, we already agreed on using the following technologies:
    - [Dancer2](https://metacpan.org/pod/Dancer2) for the REST API implementation,
    - [OpenAPI](https://github.com/OAI/OpenAPI-Specification) for the REST API specification,
    - [DBIx::Class](https://metacpan.org/pod/DBIx::Class) for Sympa database backend management and access.
-
 
 
 ## Sympa 7.0 target and methods of development
@@ -50,15 +51,19 @@ As we will not have the perfect Sympa right now, we should set some goals. A rea
   * to be iso-functional with a refactored, testable code
   * expose a full  REST API.
 
-Here is a proposed methodology:
+Below is a proposed methodology:
+ - work on new technologies implementation
+ - code refactoring
 
-### Work on new features
+### Work on new technologies implementation
 
 Write a Dancer2+DBIC proof of concept. Racke volunteers to work on it. The REST API would run on Dancer2 and directly query the database through DBIC. This would create a good base for future Sympa with actually running code.
 
-### Refactoring
+### Code refactoring
 
-The best way to have a backward compatible Sympa 7 is to start from existing code and refactor it.
+**Important: this section exposes a general approcah to handle refactoring. The details of the CPAN modules implied and the coding style are innext section.**
+
+The best way to have a backward-compatible Sympa 7 is to start from existing code and refactor it.
 
 This would be done by following these steps:
 
@@ -70,17 +75,34 @@ This would be done by following these steps:
 
 **Warning: This section contains ideas developped by Olivier and David while in the train back home. They were not discussed in such terms with the other.**
 
-This is the suggested approach to handle refactoring.
-We could track changes through comments in the Perl code. These comments would have the following 
+This is the suggested approach to track refactoring progress.
+We could track changes through *comments in the Perl code*. These comments would have the following structure
 
 ```
   # WORK: <task>: <state>
 ```
   with:
-  <task>: unit-tests|Moo|function-parameters|types-standard|any other improvement we could do
-  <state>: FIXME (nothing done yet)|DONE|ONGOING:<username> (work in progress by <username>)
+```
+  <task> = unit-tests|Moo|function-parameters|types-standard|<any other improvement we could do>
+  <state>: FIXME|DONE|ONGOING:<username>
+```
+  - `FIXME` means that nothig has been done yet,
+  - `DONE` means that this particular task is finished
+  - `ONGOING` would tell that somebody is currently working on this task for this module. <username> should be Github username.
+ 
+Example: 
+```
+  # WORK: unit-tests: DONE
+  # WORK: Moo: ONGOING:racke
+  # WORK: Function-parameters: FIXME
+  # WORK: types-standard: FIXME
+```
 
-That way, anyone could now how far we are. We even could add a progression tracker to the main Sympa web site.
+That way, anyone could know how far we are. By simply reading the module.
+
+In addition, Travis CI could parse these tags and create a report about refactoring prgress.
+
+We even could add a progression tracker to the main Sympa web site.
 
 ## Coding practices
 
@@ -163,27 +185,69 @@ For clarity purpose, we need a single entry point for people willing to get info
 
 The best tool for this seems to be the sympa.org web site.
 
-However, we need to allow community members to easily improve content of this web site. The tactic adopted by Soji to revamp Sympa manual can be reproduced for the rest of the site: have content sources on github, so that anyone willing to improve it can do it using pull requests.
+However, we need to allow community members to easily improve content of this web site. The tactics adopted by Soji to reorganize the Sympa manual can be reproduced for the rest of the site: have content sources on github, so that anyone willing to improve it can do it using pull requests.
 
-In order to preserver (blah blah):
+We suggest to use two repositories: the current sympa-community.github.io for manual, and another one for the rest of the site. The manual is quiet specific and Soji already did a lot of work on it.
+That leads to the following actions:
 
- - current www.sympa.org => dokuwiki.sympa.org or archive.sympa.org
- - sympa-community.github.io remains the central point for editing documentation.
- - a new repository is created (sympa.org) to handle:
-   - organisation of Sympa
-   - entry point for the community
-   - links to release tarballs
-   - documentation from sympa-community.github.io,
+ - current www.sympa.org (a Dokuwiki-powered site) will be moved to dokuwiki.sympa.org or archive.sympa.org foamin for backup.
+ - [sympa-community.github.io](https://github.com/sympa-community/sympa-community.github.io) remains the central point for editing documentation.
+ - a new repository is created ([dotorg](https://github.com/sympa-community/dotorg)) to handle:
+   - organisation of the Sympa project,
+   - an entry point for the community,
+   - links to release tarballs,
    - contributing guidelines,
-   - events / news / announces
-  
+   - events / news / announces.
 
-We mandated Marc to prepare that stuff in a comp
+All data stored in Github are markdown.
+
+Marc chantreux was mandated by the attendees to produce a first web site using these data. He works with pandoc to generate web pages from Markdown.
+
+He's following this workflow:
+  - move dokuwiki data to Github,
+  - translate dokuwiki syntax to Markdown
+  - use Pandoc agains to populate a web site.
+
+All website-related data (both from dotorg and sympa-community.github.io repositories) will be diaplyed on this website.
+
+The good point of this approach is to make web content independant from hosting. If the current hosting structure (RENATER) became deficient, community would still retain the data and would easily move to another hosting service.
 
 ### Decision making
 
+A simple decision-making process is as follows:
+
+ - Dude asks a question
+ - Other dudes discuss the question
+ - A result is output, that closes discussion.
+
+In order to implement that process: 
+  - points that need discussions will lead to the creation of an issue on sympa.github.io,
+  - people discuss. That implies that we should check regularly Github issues.
+  - If a question is stagnant, it should be re-activated to reach a result.
+
 ### Ease newcomers enrolment
+
+ - Use the "newcomer" tag in issues,
+ - point from sympa.org to a pre-filtered on github containing only isseus for newcomers,
+ - contribution guidelines should also be pointed from sympa.org
 
 ### Have a roadmap
 
+Use milestones in Github to help tracking what is expected to be found in next Sympa releases.
+
+Deprecations should be announced soon to help people preapre for it. And possibly discuss these deprecations.
+
 ### Make a Sympa conference
+
+We made a lot during last year to make Sympa developers work together. It's good but, that said, other parts of the population should benefit from community coehesion.
+
+Organizing a Sympa conference would be a very great opportunity to gather the different kind of people from the community (administrators, translators, packagers, end users, etc.)
+
+The idea would be to have that kind of events:
+
+  - Report about the development progress,
+  - focus on specific Sympa usages (large lists, clusters, lightweight instances, etc.)
+  - speeches from active people (Racke, Soji, etc.)
+  - workshops on specific usages (families, scenarios, etc.)
+
+We could start with something small, at more or less zero cost, hosted by a university for free.
