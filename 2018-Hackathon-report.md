@@ -9,7 +9,7 @@ It was organized by March chantreux, from RENATER, and hosted by the Strasbourg 
 ## Attendees
 Here is the list of the attendees and their main areas of expertise (in last name  - or handle - alphabetical order).
 
- - [March Chantreux](https://github.com/eiro) (RENATER): Perl expert, listmaster, Perlude creator
+ - [Marc Chantreux](https://github.com/eiro) (RENATER): Perl expert, listmaster, Perlude creator
  - [Luc Didry](https://github.com/ldidry) (Framasoft): Framasoft listmaster, Sysadmin, Perl expert and experienced free software manager
  - Mathieu Durero (French young researchers confederation) ; "The noob": Mathieu is an experienced listmaster but didn't know anything about Perl or Ansible prior to the hackathon. His "naive" - though thoughtfull -  input has been very valuable during the three days.
  - [François Menabe](https://github.com/fmenabe) (Strasbourg University): Sysadmin, Ansible expert
@@ -61,7 +61,7 @@ Write a Dancer2+DBIC proof of concept. Racke volunteers to work on it. The REST 
 
 ### Code refactoring
 
-**Important: this section exposes a general approcah to handle refactoring. The details of the CPAN modules implied and the coding style are innext section.**
+**Important: this section exposes a general approcah to handle refactoring. The details of the CPAN modules implied and the coding style are in next section.**
 
 The best way to have a backward-compatible Sympa 7 is to start from existing code and refactor it.
 
@@ -110,9 +110,9 @@ The aim of the discussion was to find a way to get rid of the *infrastructure co
 
 ### What we agreed on
 
-All these modules allow to drastically decrease the number of Sympa code lines without changing anything in the application logic. It would malke the code more readable and less error-prone.
+All these modules allow to drastically decrease the number of Sympa code lines without changing anything in the application logic. It would make the code more readable and less error-prone.
 
-Baring any strong opposition from the community, developers should use it when working on Sympa.
+Baring any strong opposition from the community, developers should use it when working on Sympa (don't forget to add those modules in the `cpanfile` with a description).
 
  - [use Moo](https://metacpan.org/pod/Moo): for *object orientation*
  - [use Types::Standard](https://metacpan.org/pod/Types::Standard): to make *type checking* both automatic and explicit in the code
@@ -121,9 +121,9 @@ Baring any strong opposition from the community, developers should use it when w
 
 ### What we did not agree on
 
-  - [use MooX::LValueAttribute](https://metacpan.org/pod/MooX::LvalueAttribute): would allow to use attributes getters and setters as simple attribute, such as in '$self->atribute = $value;'.
-  - [use autodie](https://metacpan.org/pod/autodie): throws a "die" whenever a system call fails. In addition to reservations regarding the autodie principle, the main concern was that dying is only half the job in exception systems. We also need an exception handling methodology. Without a concrete proposal about it, raising exception will only unstabilize the software.
-  - [use do](http://perldoc.perl.org/functions/do.html): there was a proposal to use "do" whenever possible to make variable affectations explicit when they require complex code; the discussion reached no actual consensus. For now, if you want to use "do", well, do it, but this would not be enforced as a coding style.
+  - [use MooX::LValueAttribute](https://metacpan.org/pod/MooX::LvalueAttribute): would allow to use attributes getters and setters as simple attribute, such as in '$self->attribute = $value;'.
+  - [use autodie](https://metacpan.org/pod/autodie): throws a `die` whenever a system call fails. In addition to reservations regarding the autodie principle, the main concern was that dying is only half the job in exception systems. We also need an exception handling methodology. Without a concrete proposal about it, raising exception will only unstabilize the software.
+  - [use do](http://perldoc.perl.org/functions/do.html): there was a proposal to use `do` whenever possible to make variable affectations explicit when they require complex code; the discussion reached no actual consensus. For now, if you want to use `do`, well, do it, but this would not be enforced as a coding style.
   - [use utf8::all](https://metacpan.org/pod/utf8::all): Thought using it would make sense in a pure web environment, the diversity of data handled by Sympa, especially in mails, make encoding issues complex. It is impossible to use it until we have a complete tesing framework and advices of people very well learned in this topic.
 
 
@@ -145,7 +145,7 @@ Somme people liked the brevity of the code. Other prefered the explicit structur
 
 ### What is left aside for now
 
-  - Functional programming: Looks like a hot stuff right now but far from being a priority. Once the code is greatly improved, we might have new contributors that demand we switc to this; Well, we'll see then,
+  - Functional programming: Looks like a hot stuff right now but far from being a priority. Once the code is greatly improved, we might have new contributors that demand we switch to this; Well, we'll see then,
 
 ### Coding style
 
@@ -153,13 +153,13 @@ Luc started working on a coding style. Everything is summed up in [this issue](h
 
 ## Community
 
-Luc stressed out the fact that, currently, self_organization of the community is weak. We won't achieve anything without a good coordination.
+Luc stressed out the fact that, currently, self organization of the community is weak. We won't achieve anything without a good coordination and that newcomers have difficulties to know where to start.
 
 Here are a few things that were approved by the hackathon attendees.
 
 ### Semantic versioning.
 
-Here is the [semantic versioning](https://semver.org/) pattern, adopted bya large number of softwares:
+Here is the [semantic versioning](https://semver.org/) pattern, adopted by a large number of softwares:
 
 `<major>.<minor>.<patch>`
 
@@ -212,6 +212,23 @@ All website-related data (both from dotorg and sympa-community.github.io reposit
 
 The good point of this approach is to make web content independant from hosting. If the current hosting structure (RENATER) became deficient, community would still retain the data and would easily move to another hosting service.
 
+**NB** a few days after the hackathon, Soji raised [questions](https://listes.renater.fr/sympa/arc/sympa-developpers/2018-05/msg00042.html) about that website:
+- Who is the person in charge on this issue?
+- Who maintain (watch) the service running?
+  If RENATER techies help, how can we contact them in urgent cases?
+  Otherwise, who mainly maintains them?
+- How can we do with crash (including crash of VM host)?
+- Who deals with queries from users about services? (e.g. I can't see Sympa site! Is the server running?)
+- What services may be run on the server?
+- Are we allowed super-user access to the server (Otherwise, what interface is provided to manage server)? [I want this]
+- How long the VM will be maintained? (e.g. until person in charge leaves community)
+- What kind of regulations by RENATER are there to use their VM?
+- When the older servers (www, demo, pootle, ...) will be shut down?
+  How about translation process (e.g. HTTP redirection).
+- etc.
+
+Those questions should be addressed, but we should remember, when discussing about them, that there is other Sympa tools that have the same problem: sympa-* ML for example.
+
 ### Decision making
 
 A simple decision-making process is as follows:
@@ -221,25 +238,28 @@ A simple decision-making process is as follows:
  - A result is output, that closes discussion.
 
 In order to implement that process: 
-  - points that need discussions will lead to the creation of an issue on sympa.github.io,
-  - people discuss. That implies that we should check regularly Github issues.
-  - If a question is stagnant, it should be re-activated to reach a result.
+  - points that need discussions will lead to the creation of an issue on sympa.github.io, referencing the thread on the ML or the IRC archive.
+  - people discuss on the original media of discussion: ML, IRC, Github issue, etc.
+  - If a question is stagnant, it should be re-activated to reach a result. That implies that we should check regularly Github issues.
+  - If a question have a result, the github issue should be closed.
+  
+Advantage: no more dying threads on ML that are forgotten because other threads came in your mail folder
 
 ### Ease newcomers enrolment
 
  - Use the "newcomer" tag in issues,
- - point from sympa.org to a pre-filtered on github containing only isseus for newcomers,
+ - point from sympa.org to a pre-filtered link on github containing only isseus for newcomers,
  - contribution guidelines should also be pointed from sympa.org
 
 ### Have a roadmap
 
 Use milestones in Github to help tracking what is expected to be found in next Sympa releases.
 
-Deprecations should be announced soon to help people preapre for it. And possibly discuss these deprecations.
+Deprecations should be announced soon to help people prepare for it. And possibly discuss these deprecations.
 
 ### Make a Sympa conference
 
-We made a lot during last year to make Sympa developers work together. It's good but, that said, other parts of the population should benefit from community coehesion.
+We made a lot during last year to make Sympa developers work together. It's good but, that said, other parts of the population should benefit from community cohesion.
 
 Organizing a Sympa conference would be a very great opportunity to gather the different kind of people from the community (administrators, translators, packagers, end users, etc.)
 
