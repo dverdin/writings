@@ -143,7 +143,7 @@ $a ne 'value' and return $a;
 return $value;
 ```
 
-Somme people liked the brevity of the code. Other prefered the explicit structure. No consensus either on this topic.
+Some people liked the brevity of the code. Other prefered the explicit structure. No consensus either on this topic.
 
 ### What is left aside for now
 
