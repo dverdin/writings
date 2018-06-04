@@ -123,7 +123,7 @@ Baring any strong opposition from the community, developers should use it when w
 
 ### What we did not agree on
 
-  - [use MooX::LValueAttribute](https://metacpan.org/pod/MooX::LvalueAttribute): would allow to use attributes getters and setters as simple attribute, such as in '$self->attribute = $value;'.
+  - [use MooX::LValueAttribute](https://metacpan.org/pod/MooX::LvalueAttribute): would allow to use attributes getters and setters as simple attribute, such as in `$self->attribute = $value;`.
   - [use autodie](https://metacpan.org/pod/autodie): throws a `die` whenever a system call fails. In addition to reservations regarding the autodie principle, the main concern was that dying is only half the job in exception systems. We also need an exception handling methodology. Without a concrete proposal about it, raising exception will only unstabilize the software.
   - [use do](http://perldoc.perl.org/functions/do.html): there was a proposal to use `do` whenever possible to make variable affectations explicit when they require complex code; the discussion reached no actual consensus. For now, if you want to use `do`, well, do it, but this would not be enforced as a coding style.
   - [use utf8::all](https://metacpan.org/pod/utf8::all): Thought using it would make sense in a pure web environment, the diversity of data handled by Sympa, especially in mails, make encoding issues complex. It is impossible to use it until we have a complete tesing framework and advices of people very well learned in this topic.
