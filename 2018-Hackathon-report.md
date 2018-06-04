@@ -108,6 +108,8 @@ We even could add a progression tracker to the main Sympa web site.
 
 The aim of the discussion was to find a way to get rid of the *infrastructure code*. That's the part of the code that handles language mechanics instead focusing on application logic. For example, the "bless" command used to cast anything into an object could be easily replaced by Moo.
 
+We agreed on adding dependencies to a boilerplate module ([Sympatic](https://metacpan.org/release/Sympatic)), thus facilitating the application of these practices anywhere in the Sympa code.
+
 ### What we agreed on
 
 All these modules allow to drastically decrease the number of Sympa code lines without changing anything in the application logic. It would make the code more readable and less error-prone.
