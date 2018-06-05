@@ -251,7 +251,9 @@ Advantage: no more dying threads on ML that are forgotten because other threads 
 
  - Use the "newcomer" tag in issues,
  - point from sympa.org to a pre-filtered link on github containing only isseus for newcomers,
- - contribution guidelines should also be pointed from sympa.org
+ - contribution guidelines should also be pointed from sympa.org,
+ - use sympa-ansible and ansible-webmail-server repositories to offer a reproducible and easy to setup development environment,
+ - unite these points in a "starter guide".
 
 ### Have a roadmap
 
