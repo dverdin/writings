@@ -7,11 +7,11 @@ The 2018 Sympa hackathon was held in Strasbourg, France, from 22 to 24 of May.
 It was organized by Marc Chantreux, from RENATER, and hosted by the Strasbourg university.
 
 ## Attendees
-Here is the list of the attendees and their main areas of expertise (in last name  - or handle - alphabetical order).
+Here is the list of the attendees and their main areas of expertise (in last name - or handle - alphabetical order).
 
  - [Marc Chantreux](https://github.com/eiro) (RENATER): Perl expert, listmaster, Perlude creator
  - [Luc Didry](https://github.com/ldidry) (Framasoft): Framasoft listmaster, Sysadmin, Perl expert and experienced free software manager
- - Mathieu Durero (French young researchers confederation) ; "The noob": Mathieu is an experienced listmaster but didn't know anything about Perl or Ansible prior to the hackathon. His "naive" - though thoughtfull -  input has been very valuable during the three days.
+ - [Mathieu Durero](https://github.com/mdrditarthur) (French young researchers confederation - CJC): "The noob": Mathieu is an experienced listmaster but didn't know anything about Perl or Ansible prior to the hackathon. His "naive" - though thoughtfull - input has been very valuable during the three days.
  - [François Menabe](https://github.com/fmenabe) (Strasbourg University): Sysadmin, Ansible expert
  - [Racke](https://github.com/racke) (Linuxia.de): Debian package developer, member of the Dancer2 community, Linux and Perl expert
  - [Olivier Salaün](https://github.com/salaun-urennes1) (Rennes university): Sympa creator, Devops expert,
