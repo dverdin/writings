@@ -4,7 +4,7 @@
 
 # 2018 Sympa Hackathon report
 The 2018 Sympa hackathon was held in Strasbourg, France, from 22 to 24 of May.
-It was organized by March chantreux, from RENATER, and hosted by the Strasbourg university.
+It was organized by Marc Chantreux, from RENATER, and hosted by the Strasbourg university.
 
 ## Attendees
 Here is the list of the attendees and their main areas of expertise (in last name  - or handle - alphabetical order).
@@ -21,7 +21,7 @@ Other people also came and went during the three days, stopping by for a short d
 
 ## Preamble
 
-The main problem in Sympa development is that, considering the large opportunities of evolution that awaits the software, it is very hard to know where to start working on it ; And considering the heterogeneity of the community, it is very hard to know *how* to work.
+The main problem in Sympa development is that, considering the large opportunities of evolution that awaits the software, it is very hard to know where to start working on it; and considering the heterogeneity of the community, it is very hard to know *how* to work.
 
 Don't get me wrong: most people know exactly how and where *they* should start. Problem is: their personal point of view is, at best, only partially shared by other.
 
@@ -33,9 +33,9 @@ Here is the list of points discussed and the agreements we reached.
 
 ## Desirable future application design
 
- - **all the code should be testable**, with both unit tests on modules and functional tests on features
- - **the code should expose several interfaces**: REST, web, CLI, mail. SOAP could be deprecated once a REST interface implements at least the same set of features.
- - all Sympa executables (being daemons, web process or command line) should make use of a **business object layer** which should be independant from the **persistance layer**.
+ - **All the code should be testable**, with both unit tests on modules and functional tests on features.
+ - **The code should expose several interfaces**: REST, web, CLI, mail. SOAP could be deprecated once a REST interface implements at least the same set of features.
+ - All Sympa executables (being daemons, web process or command line) should make use of a **business object layer** which should be independant from the **persistance layer**.
  - Reminder: during last year hackathon, we already agreed on using the following technologies:
    - [Dancer2](https://metacpan.org/pod/Dancer2) for the REST API implementation,
    - [OpenAPI](https://github.com/OAI/OpenAPI-Specification) for the REST API specification,
@@ -48,12 +48,12 @@ Here is the list of points discussed and the agreements we reached.
 
 As we will not have the perfect Sympa right now, we should set some goals. A reasonable aim for Sympa 7.0 would be:
 
-  * to be iso-functional with a refactored, testable code
-  * expose a full  REST API.
+  * to be iso-functional with a refactored, testable code,
+  * to expose a full REST API.
 
 Below is a proposed methodology:
- - work on new technologies implementation
- - code refactoring
+ - work on new technologies implementation,
+ - code refactoring.
 
 ### Work on new technologies implementation
 
@@ -86,8 +86,8 @@ We could track changes through *comments in the Perl code*. These comments would
   <task> = unit-tests|Moo|function-parameters|types-standard|<any other improvement we could do>
   <state>: FIXME|DONE|ONGOING:<username>
 ```
-  - `FIXME` means that nothig has been done yet,
-  - `DONE` means that this particular task is finished
+  - `FIXME` means that nothing has been done yet,
+  - `DONE` means that this particular task is finished,
   - `ONGOING` would tell that somebody is currently working on this task for this module. <username> should be Github username.
  
 Example: 
@@ -98,15 +98,15 @@ Example:
   # WORK: types-standard: FIXME
 ```
 
-That way, anyone could know how far we are. By simply reading the module.
+That way, anyone could know how far we are by simply reading the module.
 
-In addition, Travis CI could parse these tags and create a report about refactoring prgress.
+In addition, Travis CI could parse these tags and create a report about refactoring progress.
 
 We even could add a progression tracker to the main Sympa web site.
 
 ## Coding practices
 
-The aim of the discussion was to find a way to get rid of the *infrastructure code*. That's the part of the code that handles language mechanics instead focusing on application logic. For example, the "bless" command used to cast anything into an object could be easily replaced by Moo.
+The aim of the discussion was to find a way to get rid of the *infrastructure code*. That's the part of the code that handles language mechanics instead of focusing on application logic. For example, the "bless" command used to cast anything into an object could be easily replaced by Moo.
 
 We agreed on adding dependencies to a boilerplate module ([Sympatic](https://metacpan.org/release/Sympatic)), thus facilitating the application of these practices anywhere in the Sympa code.
 
@@ -116,9 +116,9 @@ All these modules allow to drastically decrease the number of Sympa code lines w
 
 Baring any strong opposition from the community, developers should use it when working on Sympa (don't forget to add those modules in the `cpanfile` with a description).
 
- - [use Moo](https://metacpan.org/pod/Moo): for *object orientation*
- - [use Types::Standard](https://metacpan.org/pod/Types::Standard): to make *type checking* both automatic and explicit in the code
- - [use Function::Parameters](https://metacpan.org/pod/Function::Parameters): to get functions (and object methods) signatures.
+ - [use Moo](https://metacpan.org/pod/Moo): for *object orientation*,
+ - [use Types::Standard](https://metacpan.org/pod/Types::Standard): to make *type checking* both automatic and explicit in the code,
+ - [use Function::Parameters](https://metacpan.org/pod/Function::Parameters): to get functions (and object methods) signatures,
  - [use Path::Tiny](https://metacpan.org/pod/Path::Tiny): for any filesystem manipulation.
 
 ### What we did not agree on
@@ -126,10 +126,10 @@ Baring any strong opposition from the community, developers should use it when w
   - [use MooX::LValueAttribute](https://metacpan.org/pod/MooX::LvalueAttribute): would allow to use attributes getters and setters as simple attribute, such as in `$self->attribute = $value;`.
   - [use autodie](https://metacpan.org/pod/autodie): throws a `die` whenever a system call fails. In addition to reservations regarding the autodie principle, the main concern was that dying is only half the job in exception systems. We also need an exception handling methodology. Without a concrete proposal about it, raising exception will only unstabilize the software.
   - [use do](http://perldoc.perl.org/functions/do.html): there was a proposal to use `do` whenever possible to make variable affectations explicit when they require complex code; the discussion reached no actual consensus. For now, if you want to use `do`, well, do it, but this would not be enforced as a coding style.
-  - [use utf8::all](https://metacpan.org/pod/utf8::all): Thought using it would make sense in a pure web environment, the diversity of data handled by Sympa, especially in mails, make encoding issues complex. It is impossible to use it until we have a complete tesing framework and advices of people very well learned in this topic.
+  - [use utf8::all](https://metacpan.org/pod/utf8::all): thought using it would make sense in a pure web environment, the diversity of data handled by Sympa, especially in emails, make encoding issues complex. It is impossible to use it until we have a complete testing framework and advice from people very well learned in this topic.
 
 
-Pseudo-cyclomatic complexity removal. that means, replacing this:
+Pseudo-cyclomatic complexity removal. That means, replacing this:
 ```
 if ($a ne 'value') {
   return $a;
@@ -143,11 +143,11 @@ $a ne 'value' and return $a;
 return $value;
 ```
 
-Some people liked the brevity of the code. Other prefered the explicit structure. No consensus either on this topic.
+Some people liked the brevity of the code. Other preferred the explicit structure. No consensus either on this topic.
 
 ### What is left aside for now
 
-  - Functional programming: Looks like a hot stuff right now but far from being a priority. Once the code is greatly improved, we might have new contributors that demand we switch to this; Well, we'll see then,
+  - Functional programming: looks like a hot stuff right now but far from being a priority. Once the code is greatly improved, we might have new contributors that demand we switch to this; well, we'll see then.
 
 ### Coding style
 
@@ -155,27 +155,27 @@ Luc started working on a coding style. Everything is summed up in [this issue](h
 
 ## Community
 
-Luc stressed out the fact that, currently, self organization of the community is weak. We won't achieve anything without a good coordination and that newcomers have difficulties to know where to start.
+Luc stressed out the fact that, currently, self organization of the community is weak and that newcomers have difficulties to know where to start. We won't achieve anything without a good coordination.
 
 Here are a few things that were approved by the hackathon attendees.
 
-### Semantic versioning.
+### Semantic versioning
 
 Here is the [semantic versioning](https://semver.org/) pattern, adopted by a large number of softwares:
 
 `<major>.<minor>.<patch>`
 
-Example :
+Example:
 
 `6.2.23`
 
-  - **<major>**: non backward-compatible changes to the API
+  - **<major>**: non backward-compatible changes to the API;
   - **<minor>**: backward-compatible new functionnalities
-    - if even (2, 4, 6...): stable release
-    - if odd (1, 3, 5, ...): unstable release
+    - if even (2, 4, 6...): stable release,
+    - if odd (1, 3, 5, ...): unstable release;
   - **<patch>**: backward-compatible bug fixes.
 
-The current way of Sympa versioning is atypical a prone to instill confusion to users. Non reversible and unstabilizing changes are introduced to the only active branch. Consequently, people upgrading Sympa can have broken features when they should expect only bug fixes.
+The current way of Sympa versioning is atypical and prone to instill confusion to users. Non reversible and unstabilizing changes are introduced to the only active branch. Consequently, people upgrading Sympa can have broken features when they should expect only bug fixes.
 
 Changing the way we version is possible right now (replacing the 6.2.33 with 6.3.0 for example). It is just a matter of communication: 
   - send a message to the lists,
@@ -183,40 +183,40 @@ Changing the way we version is possible right now (replacing the 6.2.33 with 6.3
 
 ### Single entry point for Sympa
 
-For clarity purpose, we need a single entry point for people willing to get informations about Sympa.
+For clarity purpose, we need a single entry point for people willing to get information about Sympa.
 
 The best tool for this seems to be the sympa.org web site.
 
 However, we need to allow community members to easily improve content of this web site. The tactics adopted by Soji to reorganize the Sympa manual can be reproduced for the rest of the site: have content sources on github, so that anyone willing to improve it can do it using pull requests.
 
-We suggest to use two repositories: the current sympa-community.github.io for manual, and another one for the rest of the site. The manual is quiet specific and Soji already did a lot of work on it.
+We suggest to use two repositories: the current sympa-community.github.io for manual, and another one for the rest of the site. The manual is quite specific and Soji already did a lot of work on it.
 That leads to the following actions:
 
- - current www.sympa.org (a Dokuwiki-powered site) will be moved to dokuwiki.sympa.org or archive.sympa.org foamin for backup.
+ - Current www.sympa.org (a Dokuwiki-powered site) will be moved to dokuwiki.sympa.org or archive.sympa.org domain for backup.
  - [sympa-community.github.io](https://github.com/sympa-community/sympa-community.github.io) remains the central point for editing documentation.
- - a new repository is created ([dotorg](https://github.com/sympa-community/dotorg)) to handle:
+ - A new repository is created ([dotorg](https://github.com/sympa-community/dotorg)) to handle:
    - organisation of the Sympa project,
    - an entry point for the community,
    - links to release tarballs,
    - contributing guidelines,
    - events / news / announces.
 
-All data stored in Github are markdown.
+All data stored in Github are Markdown.
 
-Marc chantreux was mandated by the attendees to produce a first web site using these data. He works with pandoc to generate web pages from Markdown.
+Marc Chantreux was mandated by the attendees to produce a first web site using these data. He works with Pandoc to generate web pages from Markdown.
 
 He's following this workflow:
   - move dokuwiki data to Github,
-  - translate dokuwiki syntax to Markdown
-  - use Pandoc agains to populate a web site.
+  - translate dokuwiki syntax to Markdown,
+  - use Pandoc again to populate a web site.
 
-All website-related data (both from dotorg and sympa-community.github.io repositories) will be diaplyed on this website.
+All website-related data (both from dotorg and sympa-community.github.io repositories) will be displayed on this website.
 
-The good point of this approach is to make web content independant from hosting. If the current hosting structure (RENATER) became deficient, community would still retain the data and would easily move to another hosting service.
+The good point of this approach is to make web content independent from hosting. If the current hosting structure (RENATER) became deficient, community would still retain the data and would easily move to another hosting service.
 
 **NB** a few days after the hackathon, Soji raised [questions](https://listes.renater.fr/sympa/arc/sympa-developpers/2018-05/msg00042.html) about that website:
 - Who is the person in charge on this issue?
-- Who maintain (watch) the service running?
+- Who maintains (watch) the service running?
   If RENATER techies help, how can we contact them in urgent cases?
   Otherwise, who mainly maintains them?
 - How can we do with crash (including crash of VM host)?
@@ -229,29 +229,29 @@ The good point of this approach is to make web content independant from hosting.
   How about translation process (e.g. HTTP redirection).
 - etc.
 
-Those questions should be addressed, but we should remember, when discussing about them, that there is other Sympa tools that have the same problem: sympa-* ML for example.
+Those questions should be addressed, but we should remember, when discussing about them, that there are other Sympa tools that have the same problem: sympa-* ML for example.
 
 ### Decision making
 
 A simple decision-making process is as follows:
 
- - Dude asks a question
- - Other dudes discuss the question
+ - Dude asks a question.
+ - Other dudes discuss the question.
  - A result is output, that closes discussion.
 
 In order to implement that process: 
-  - points that need discussions will lead to the creation of an issue on sympa.github.io, referencing the thread on the ML or the IRC archive.
-  - people discuss on the original media of discussion: ML, IRC, Github issue, etc.
+  - Points that need discussions will lead to the creation of an issue on sympa.github.io, referencing the thread on the ML or the IRC archive.
+  - People discuss on the original media of discussion: ML, IRC, Github issue, etc.
   - If a question is stagnant, it should be re-activated to reach a result. That implies that we should check regularly Github issues.
-  - If a question have a result, the github issue should be closed.
+  - If a question has a result, the Github issue should be closed.
   
-Advantage: no more dying threads on ML that are forgotten because other threads came in your mail folder
+Advantage: no more dying threads on ML that are forgotten because other threads came in your email folder
 
 ### Ease newcomers enrolment
 
  - Use the "newcomer" tag in issues,
- - point from sympa.org to a pre-filtered link on github containing only isseus for newcomers,
- - contribution guidelines should also be pointed from sympa.org
+ - point from sympa.org to a pre-filtered link on github containing only issues for newcomers,
+ - contribution guidelines should also be pointed from sympa.org.
 
 ### Have a roadmap
 
@@ -263,13 +263,13 @@ Deprecations should be announced soon to help people prepare for it. And possibl
 
 We made a lot during last year to make Sympa developers work together. It's good but, that said, other parts of the population should benefit from community cohesion.
 
-Organizing a Sympa conference would be a very great opportunity to gather the different kind of people from the community (administrators, translators, packagers, end users, etc.)
+Organizing a Sympa conference would be a very great opportunity to gather the different kind of people from the community (administrators, translators, packagers, end users, etc.).
 
 The idea would be to have that kind of events:
 
-  - Report about the development progress,
-  - focus on specific Sympa usages (large lists, clusters, lightweight instances, etc.)
-  - speeches from active people (Racke, Soji, etc.)
-  - workshops on specific usages (families, scenarios, etc.)
+  - report about the development progress,
+  - focus on specific Sympa usages (large lists, clusters, lightweight instances, etc.),
+  - speeches from active people (Racke, Soji, etc.),
+  - workshops on specific usages (families, scenarios, etc.).
 
 We could start with something small, at more or less zero cost, hosted by a university for free.
