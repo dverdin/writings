@@ -231,6 +231,8 @@ The good point of this approach is to make web content independent from hosting.
 
 Those questions should be addressed, but we should remember, when discussing about them, that there are other Sympa tools that have the same problem: sympa-* ML for example.
 
+Any concern related to Sympa web site - and tools - hosting should be discussed on a Github issue in the [web site project](https://github.com/sympa-community/dotorg/issues).
+
 ### Decision making
 
 A simple decision-making process is as follows:
